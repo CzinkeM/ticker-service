@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.29">
+<file name="/home/mczinke/university/epam-deik-java-dev/final/ticket-service/src/main/java/com/epam/training/ticketservice/persistance/entity/MovieDto.java">
+<error line="3" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - javax.persistence.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+</file>
+<file name="/home/mczinke/university/epam-deik-java-dev/final/ticket-service/src/main/java/com/epam/training/ticketservice/persistance/repository/MovieRepository.java">
+<error line="10" column="73" severity="warning" message="GenericWhitespace &apos;&gt;&apos; should followed by whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.GenericWhitespaceCheck"/>
+<error line="10" column="74" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+<file name="/home/mczinke/university/epam-deik-java-dev/final/ticket-service/src/main/java/com/epam/training/ticketservice/models/Movie.java">
+<error line="42" severity="warning" message="&apos;if&apos; construct must use &apos;{}&apos;s." source="com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheck"/>
+<error line="43" severity="warning" message="&apos;if&apos; construct must use &apos;{}&apos;s." source="com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheck"/>
+<error line="55" column="25" severity="warning" message="&apos;+&apos; should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.whitespace.OperatorWrapCheck"/>
+<error line="56" column="42" severity="warning" message="&apos;+&apos; should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.whitespace.OperatorWrapCheck"/>
+<error line="57" column="44" severity="warning" message="&apos;+&apos; should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.whitespace.OperatorWrapCheck"/>
+<error line="58" column="38" severity="warning" message="&apos;+&apos; should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.whitespace.OperatorWrapCheck"/>
+</file>
+<file name="/home/mczinke/university/epam-deik-java-dev/final/ticket-service/src/main/java/com/epam/training/ticketservice/cli/command/MovieCommand.java">
+<error line="15" severity="warning" message="&apos;CTOR_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+<error line="21" column="70" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="25" severity="warning" message="&apos;METHOD_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+</file>
+<file name="/home/mczinke/university/epam-deik-java-dev/final/ticket-service/src/main/java/com/epam/training/ticketservice/cli/TicketServicePromptProvider.java">
+<error line="8" column="67" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+<file name="/home/mczinke/university/epam-deik-java-dev/final/ticket-service/src/main/java/com/epam/training/ticketservice/service/MovieServiceImpl.java">
+<error line="23" column="23" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="37" column="9" severity="warning" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="37" column="31" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="40" column="9" severity="warning" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="40" column="38" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="43" column="9" severity="warning" message="WhitespaceAround: &apos;}&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="43" column="10" severity="warning" message="WhitespaceAround: &apos;else&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="43" column="10" severity="warning" message="WhitespaceAround: &apos;else&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="43" column="14" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="52" column="9" severity="warning" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="53" column="9" severity="warning" message="&apos;{&apos; at column 9 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="55" column="9" severity="warning" message="WhitespaceAround: &apos;}&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="55" column="10" severity="warning" message="WhitespaceAround: &apos;else&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="55" column="10" severity="warning" message="WhitespaceAround: &apos;else&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="55" column="14" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="64" column="9" severity="warning" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="65" column="9" severity="warning" message="&apos;{&apos; at column 9 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="67" column="9" severity="warning" message="WhitespaceAround: &apos;}&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="67" column="10" severity="warning" message="WhitespaceAround: &apos;else&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="67" column="10" severity="warning" message="WhitespaceAround: &apos;else&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="67" column="14" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="70" column="13" severity="warning" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="70" column="42" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="78" column="13" severity="warning" message="WhitespaceAround: &apos;}&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="78" column="14" severity="warning" message="WhitespaceAround: &apos;else&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="78" column="14" severity="warning" message="WhitespaceAround: &apos;else&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="78" column="18" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="84" column="50" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="87" severity="warning" message="&apos;METHOD_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+<error line="87" column="52" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+<file name="/home/mczinke/university/epam-deik-java-dev/final/ticket-service/src/main/java/com/epam/training/ticketservice/service/Pair.java">
+<error line="4" column="20" severity="warning" message="Member name &apos;t&apos; must match pattern &apos;^[a-z][a-z0-9][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck"/>
+<error line="5" column="20" severity="warning" message="Member name &apos;u&apos; must match pattern &apos;^[a-z][a-z0-9][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck"/>
+<error line="8" column="15" severity="warning" message="WhitespaceAround: &apos;=&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="9" column="15" severity="warning" message="WhitespaceAround: &apos;=&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+<file name="/home/mczinke/university/epam-deik-java-dev/final/ticket-service/src/main/java/com/epam/training/ticketservice/service/MovieService.java">
+<error line="7" column="30" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="9" severity="warning" message="&apos;METHOD_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+<error line="10" severity="warning" message="&apos;METHOD_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+<error line="11" severity="warning" message="&apos;METHOD_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+</file>
+<file name="/home/mczinke/university/epam-deik-java-dev/final/ticket-service/src/main/java/com/epam/training/ticketservice/service/MovieServiceHelper.java">
+<error line="12" column="76" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="16" column="9" severity="warning" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="16" column="83" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="19" column="9" severity="warning" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="19" column="59" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="22" column="9" severity="warning" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="22" column="59" severity="warning" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+</checkstyle>
