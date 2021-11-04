@@ -6,32 +6,30 @@ import com.epam.training.ticketservice.models.Pair;
 import java.util.List;
 import java.util.Objects;
 
-public final class MovieServiceHelper {
+public class MovieServiceHelper implements ServiceHelper<Movie>{
 
-    private MovieServiceHelper() {
+    public MovieServiceHelper() {
     }
 
-    public static Pair<Boolean, String> isMovieValid(Movie movieToValidate) {
-        Objects.requireNonNull(movieToValidate, "Movie cannot be null");
-        Objects.requireNonNull(movieToValidate.getTitle(), "Movie cannot be null");
-        Objects.requireNonNull(movieToValidate.getGenre(), "Movie cannot be null");
-        if (movieToValidate.getLength() <= 0 || movieToValidate.getLength() > 1260) {
+    @Override
+    public Pair<Boolean, String> isValid(Movie movie) {
+        Objects.requireNonNull(movie, "Movie cannot be null");
+        Objects.requireNonNull(movie.getTitle(), "Movie cannot be null");
+        Objects.requireNonNull(movie.getGenre(), "Movie cannot be null");
+        if (movie.getLength() <= 0 || movie.getLength() > 1260) {
             return new Pair<>(false, "Please provide valid length.");
         }
-        if (Objects.equals(movieToValidate.getTitle(), "")) {
+        if (Objects.equals(movie.getTitle(), "")) {
             return new Pair<>(false, "Please provide valid title.");
         }
-        if (Objects.equals(movieToValidate.getGenre(), "")) {
+        if (Objects.equals(movie.getGenre(), "")) {
             return new Pair<>(false, "Please provide valid genre.");
         }
         return new Pair<>(true, "Its valid");
     }
 
-    public static String constructMovieListString(List<Movie> movies) {
-        String moviesString = "";
-        for (Movie movie : movies) {
-            moviesString += movie.toString();
-        }
-        return moviesString;
+    @Override
+    public String PrettyListString(List<Movie> movies) {
+        return ServiceHelper.super.PrettyListString(movies);
     }
 }

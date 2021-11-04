@@ -35,7 +35,7 @@ public class MovieServiceImpl implements MovieService, GenericConverter<Movie, M
         if (listOfMovies.isEmpty()) {
             return "There are no movies at the moment";
         }
-        return MovieServiceHelper.constructMovieListString(listOfMovies);
+        return new MovieServiceHelper().PrettyListString(listOfMovies);
         //return listOfMovies.toString();
     }
 
@@ -56,7 +56,7 @@ public class MovieServiceImpl implements MovieService, GenericConverter<Movie, M
 
     @Override
     public String create(Movie movie) {
-        var validator = MovieServiceHelper.isMovieValid(movie);
+        var validator = new MovieServiceHelper().isValid(movie);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {
@@ -67,7 +67,7 @@ public class MovieServiceImpl implements MovieService, GenericConverter<Movie, M
 
     @Override
     public String update(Movie movie) {
-        var validator = MovieServiceHelper.isMovieValid(movie);
+        var validator = new MovieServiceHelper().isValid(movie);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {

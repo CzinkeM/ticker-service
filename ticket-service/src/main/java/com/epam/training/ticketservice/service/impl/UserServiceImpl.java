@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 @Service
-public class UserServiceImpl implements UserService, GenericConverter<User, UserDto> {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     public User loggedInUser = null;
