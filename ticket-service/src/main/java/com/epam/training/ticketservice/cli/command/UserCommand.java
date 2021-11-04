@@ -15,7 +15,7 @@ public class UserCommand {
         this.userService = userService;
     }
 
-    @ShellMethod(value = "Sign in with username and password.", key = "sign in")
+    @ShellMethod(value = "Sign in with username and password.", key = "sign in privileged")
     public String signIn(String user, String password) {
         return userService.signIn(user, password);
     }

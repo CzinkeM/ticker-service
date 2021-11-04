@@ -1,19 +1,19 @@
 package com.epam.training.ticketservice.models;
 
 public class Pair<T, U> {
-    public final T t;
-    public final U u;
+    public final T first;
+    public final U second;
 
-    public Pair(T t, U u) {
-        this.t = t;
-        this.u = u;
+    public Pair(T first, U second) {
+        this.first = first;
+        this.second = second;
     }
 
     public T getFirst() {
-        return t;
+        return first;
     }
 
     public U getSecond() {
-        return u;
+        return second;
     }
 }

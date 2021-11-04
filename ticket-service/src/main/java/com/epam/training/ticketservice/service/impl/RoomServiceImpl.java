@@ -1,14 +1,15 @@
 package com.epam.training.ticketservice.service.impl;
 
+import com.epam.training.ticketservice.models.Pair;
 import com.epam.training.ticketservice.models.Room;
 import com.epam.training.ticketservice.persistance.entity.RoomDto;
 import com.epam.training.ticketservice.persistance.repository.RoomRepository;
 import com.epam.training.ticketservice.service.RoomService;
-import com.epam.training.ticketservice.service.helper.MovieServiceHelper;
 import com.epam.training.ticketservice.service.helper.RoomServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,11 +24,11 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public String getAll() {
-        var listOfRooms = roomRepository.findAll().stream().map(this::convertDtoToModel).collect(Collectors.toList());
+        List<Room> listOfRooms = roomRepository.findAll().stream().map(this::convertDtoToModel).collect(Collectors.toList());
         if (listOfRooms.isEmpty()) {
             return "There are no movies at the moment";
         }
-        return new RoomServiceHelper().PrettyListString(listOfRooms);
+        return new RoomServiceHelper().prettyListString(listOfRooms);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public String create(Room room) {
-        var validator = new RoomServiceHelper().isValid(room);
+        Pair<Boolean, String> validator = new RoomServiceHelper().isValid(room);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {

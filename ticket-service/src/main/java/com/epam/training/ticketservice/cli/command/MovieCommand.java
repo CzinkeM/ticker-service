@@ -24,15 +24,13 @@ public class MovieCommand implements CommandAvailability {
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(value = "Create Movie", key = "create movie")
     public String createMovie(String title, String genre, int length) {
-        var movie = new Movie(title, genre, length);
-        return movieService.create(movie);
+        return movieService.create(new Movie(title, genre, length));
     }
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(value = "Update Movie", key = "update movie")
     public String updateMovie(String title, String genre, int length) {
-        var movie = new Movie(title, genre, length);
-        return movieService.update(movie);
+        return movieService.update(new Movie(title, genre, length));
     }
 
     @ShellMethodAvailability("isAvailable")

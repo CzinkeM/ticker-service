@@ -6,7 +6,7 @@ import com.epam.training.ticketservice.models.Pair;
 import java.util.List;
 import java.util.Objects;
 
-public class MovieServiceHelper implements ServiceHelper<Movie>{
+public class MovieServiceHelper implements ServiceHelper<Movie> {
 
     public MovieServiceHelper() {
     }
@@ -29,7 +29,7 @@ public class MovieServiceHelper implements ServiceHelper<Movie>{
     }
 
     @Override
-    public String PrettyListString(List<Movie> movies) {
-        return ServiceHelper.super.PrettyListString(movies);
+    public String prettyListString(List<Movie> movies) {
+        return ServiceHelper.super.prettyListString(movies);
     }
 }

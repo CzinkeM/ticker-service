@@ -2,7 +2,14 @@ package com.epam.training.ticketservice.persistance.entity;
 
 import com.epam.training.ticketservice.models.Role;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import java.util.Objects;
 
 @Entity

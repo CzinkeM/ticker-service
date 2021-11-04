@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,17 +32,17 @@ public class MovieServiceImpl implements MovieService, GenericConverter<Movie, M
 
     @Override
     public String getAll() {
-        var listOfMovies = movieRepository.findAll().stream().map(this::convertDtoToModel).collect(Collectors.toList());
+        List<Movie> listOfMovies = movieRepository.findAll().stream().map(this::convertDtoToModel).collect(Collectors.toList());
         if (listOfMovies.isEmpty()) {
             return "There are no movies at the moment";
         }
-        return new MovieServiceHelper().PrettyListString(listOfMovies);
+        return new MovieServiceHelper().prettyListString(listOfMovies);
         //return listOfMovies.toString();
     }
 
     @Override
     public String delete(String identifier) {
-        var movieToDelete = movieRepository.findByTitle(identifier);
+        Optional<MovieDto> movieToDelete = movieRepository.findByTitle(identifier);
         if (identifier == null) {
             return "Please provide valid identifier";
         }

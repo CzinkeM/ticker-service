@@ -1,6 +1,10 @@
 package com.epam.training.ticketservice.persistance.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
 import java.util.Objects;
 
 @Entity
@@ -16,10 +20,10 @@ public class RoomDto {
     private Integer rows;
     private int column;
 
-    public RoomDto(){
+    public RoomDto() {
     }
 
-    public RoomDto(Integer id, String name, Integer rows,int column) {
+    public RoomDto(Integer id, String name, Integer rows, int column) {
         this.id = id;
         this.name = name;
         this.rows = rows;
@@ -60,10 +64,18 @@ public class RoomDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         RoomDto roomDto = (RoomDto) o;
-        return column == roomDto.column && Objects.equals(id, roomDto.id) && Objects.equals(name, roomDto.name) && Objects.equals(rows, roomDto.rows);
+        return column == roomDto.column && Objects.equals(id, roomDto.id) && Objects.equals(name, roomDto.name)
+                && Objects.equals(rows, roomDto.rows);
     }
 
     @Override
@@ -73,11 +85,16 @@ public class RoomDto {
 
     @Override
     public String toString() {
-        return "RoomDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", rows=" + rows +
-                ", column=" + column +
-                '}';
+        return "RoomDto{"
+                + "id="
+                + id
+                + ", name='"
+                + name
+                + '\''
+                + ", rows="
+                + rows
+                + ", column="
+                + column
+                + '}';
     }
 }

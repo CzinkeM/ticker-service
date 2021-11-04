@@ -1,7 +1,7 @@
 package com.epam.training.ticketservice.service.helper;
 
-public interface GenericConverter<Model, DTO> {
-    Model convertDtoToModel(DTO dto);
+public interface GenericConverter<T, U> {
+    T convertDtoToModel(U dto);
 
-    DTO convertModelToDto(Model model);
+    U convertModelToDto(T model);
 }

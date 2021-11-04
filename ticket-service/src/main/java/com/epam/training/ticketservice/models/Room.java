@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class Room {
 
+    private final int capacity;
     private String name;
     private int rows;
     private int columns;
-    private final int capacity;
 
     public Room(String name, int rows, int columns) {
         this.name = name;
@@ -46,10 +46,20 @@ public class Room {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Room room = (Room) o;
-        return rows == room.rows && columns == room.columns && capacity == room.capacity && Objects.equals(name, room.name);
+        return rows == room.rows
+                && columns == room.columns
+                && capacity == room.capacity
+                && Objects.equals(name, room.name);
     }
 
     @Override

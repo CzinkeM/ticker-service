@@ -16,7 +16,7 @@ public class RoomServiceHelper implements ServiceHelper<Room> {
     }
 
     @Override
-    public String PrettyListString(List<Room> movies) {
-        return ServiceHelper.super.PrettyListString(movies);
+    public String prettyListString(List<Room> movies) {
+        return ServiceHelper.super.prettyListString(movies);
     }
 }

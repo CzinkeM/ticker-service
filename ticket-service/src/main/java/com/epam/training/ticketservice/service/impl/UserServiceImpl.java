@@ -5,13 +5,13 @@ import com.epam.training.ticketservice.models.User;
 import com.epam.training.ticketservice.persistance.entity.UserDto;
 import com.epam.training.ticketservice.persistance.repository.UserRepository;
 import com.epam.training.ticketservice.service.UserService;
-import com.epam.training.ticketservice.service.helper.GenericConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.Availability;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public String signIn(String username, String password) {
         Objects.requireNonNull(username, "Username cannot be null during login");
         Objects.requireNonNull(password, "Password cannot be null during login");
-        var retrievedUserFormDatabase = userRepository.findByUsernameAndPassword(username, password).orElse(null);
+        UserDto retrievedUserFormDatabase = userRepository.findByUsernameAndPassword(username, password).orElse(null);
         if (retrievedUserFormDatabase == null) {
             return "Login failed due to incorrect credentials";
         }
