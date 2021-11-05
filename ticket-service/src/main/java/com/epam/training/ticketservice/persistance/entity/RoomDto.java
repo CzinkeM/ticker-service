@@ -17,13 +17,13 @@ public class RoomDto {
     @Column(unique = true)
     private String name;
 
-    private Integer rows;
+    private int rows;
     private int column;
 
     public RoomDto() {
     }
 
-    public RoomDto(Integer id, String name, Integer rows, int column) {
+    public RoomDto(Integer id, String name, int rows, int column) {
         this.id = id;
         this.name = name;
         this.rows = rows;

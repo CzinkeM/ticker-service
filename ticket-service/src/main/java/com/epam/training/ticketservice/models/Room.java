@@ -69,6 +69,6 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room " + name + " with " + capacity + " seats, " + rows + " rows, and " + columns + " columns";
+        return "Room " + name + " with " + capacity + " seats, " + rows + " rows and " + columns + " columns\n";
     }
 }

@@ -1,6 +1,7 @@
 package com.epam.training.ticketservice.service.impl;
 
 import com.epam.training.ticketservice.models.Movie;
+import com.epam.training.ticketservice.models.Pair;
 import com.epam.training.ticketservice.persistance.entity.MovieDto;
 import com.epam.training.ticketservice.persistance.repository.MovieRepository;
 import com.epam.training.ticketservice.service.MovieService;
@@ -13,6 +14,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class MovieServiceImpl implements MovieService, GenericConverter<Movie, MovieDto> {
@@ -27,37 +29,41 @@ public class MovieServiceImpl implements MovieService, GenericConverter<Movie, M
     public void init() {
         MovieDto starWars = new MovieDto(null, "Star Wars", "sci-fi", 120);
         MovieDto dune = new MovieDto(null, "Dűne", "sci-fi", 134);
-        movieRepository.saveAll(List.of(starWars, dune));
+        List<MovieDto> listOfMovies = Stream.of(starWars,dune).collect(Collectors.toList());
+        movieRepository.saveAll(listOfMovies);
     }
 
     @Override
     public String getAll() {
-        List<Movie> listOfMovies = movieRepository.findAll().stream().map(this::convertDtoToModel).collect(Collectors.toList());
+        List<Movie> listOfMovies = movieRepository
+                .findAll().stream()
+                .map(this::convertDtoToModel)
+                .collect(Collectors.toList());
         if (listOfMovies.isEmpty()) {
             return "There are no movies at the moment";
         }
         return new MovieServiceHelper().prettyListString(listOfMovies);
-        //return listOfMovies.toString();
     }
 
     @Override
     public String delete(String identifier) {
-        Optional<MovieDto> movieToDelete = movieRepository.findByTitle(identifier);
         if (identifier == null) {
             return "Please provide valid identifier";
         }
+        Optional<MovieDto> movieToDelete = movieRepository.findByTitle(identifier);
+
         if (movieToDelete.isPresent()) {
             movieRepository.delete(movieToDelete.get());
             return movieToDelete.get().getTitle() + " DELETED!";
         } else {
-            return "The movie with identifier:" + identifier + "does not exist.";
+            return "The movie with identifier: " + identifier + " does not exist.";
         }
 
     }
 
     @Override
     public String create(Movie movie) {
-        var validator = new MovieServiceHelper().isValid(movie);
+        Pair<Boolean, String> validator = new MovieServiceHelper().isValid(movie);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {
@@ -68,14 +74,14 @@ public class MovieServiceImpl implements MovieService, GenericConverter<Movie, M
 
     @Override
     public String update(Movie movie) {
-        var validator = new MovieServiceHelper().isValid(movie);
+        Pair<Boolean, String>  validator = new MovieServiceHelper().isValid(movie);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {
             //It uses the title as identifier
-            var movieToUpdate = movieRepository.findByTitle(movie.getTitle());
+            Optional<MovieDto> movieToUpdate = movieRepository.findByTitle(movie.getTitle());
             if (movieToUpdate.isPresent()) {
-                var updatedMovie = new MovieDto(
+                MovieDto updatedMovie = new MovieDto(
                         movieToUpdate.get().getId(),
                         movie.getTitle(),
                         movie.getGenre(),
