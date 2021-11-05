@@ -11,9 +11,11 @@ import com.epam.training.ticketservice.service.helper.RoomServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -23,6 +25,12 @@ public class RoomServiceImpl implements RoomService {
     @Autowired
     public RoomServiceImpl(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
+    }
+
+    @PostConstruct
+    public void init() {
+        RoomDto roomDto = new RoomDto(null, "room-1", 10, 10);
+        roomRepository.save(roomDto);
     }
 
     @Override
