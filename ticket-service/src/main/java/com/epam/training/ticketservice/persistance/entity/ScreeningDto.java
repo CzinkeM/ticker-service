@@ -1,5 +1,7 @@
 package com.epam.training.ticketservice.persistance.entity;
 
+import com.epam.training.ticketservice.models.Movie;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;

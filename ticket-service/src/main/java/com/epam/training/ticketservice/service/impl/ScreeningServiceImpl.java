@@ -43,7 +43,7 @@ public class ScreeningServiceImpl implements ScreeningService {
                 .map(this::convertDtoToModel)
                 .collect(Collectors.toList());
         if (listOfScreening.isEmpty()) {
-            return "There are no movies at the moment";
+            return "There are no screenings";
         }
         return helper.prettyListString(listOfScreening);
     }
@@ -69,6 +69,8 @@ public class ScreeningServiceImpl implements ScreeningService {
             if(!helper.IsMovieValid(movieRepository,screening.getMovieTitle())){
                return  "Movie does not exist";
             }
+            screening.setMovie(movieRepository.findByTitle(screening.getMovieTitle()).get());
+
             if(!helper.IsRoomValid(roomRepository,screening.getRoomName())){
                 return "Room does not exist";
             }
@@ -93,7 +95,11 @@ public class ScreeningServiceImpl implements ScreeningService {
 
     @Override
     public Screening convertDtoToModel(ScreeningDto dto) {
-        return new Screening(dto.getMovieTitle(), dto.getRoomName(),dto.getDateOfScreening());
+        var screening = new Screening(dto.getMovieTitle(), dto.getRoomName(),dto.getDateOfScreening());
+        if(helper.IsMovieValid(movieRepository,dto.getMovieTitle())){
+            screening.setMovie(movieRepository.findByTitle(dto.getMovieTitle()).get());
+        }
+        return screening;
     }
 
     @Override

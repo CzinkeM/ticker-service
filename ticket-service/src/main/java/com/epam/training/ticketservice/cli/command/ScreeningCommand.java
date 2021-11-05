@@ -22,15 +22,12 @@ public class ScreeningCommand {
         Screening screening = new Screening(movieName,roomName,startDateString);
         return screeningService.create(screening);
     }
-    public String deleteScreening(){
-    return "Not Implemented Yet";
-    }
-    public String updateScreening(){
-        return "Not Implemented Yet";
+    @ShellMethod(value = "Delete Screening", key = "delete screening")
+    public String deleteScreening(String movieTitle, String roomName, String startDateString){
+        return screeningService.delete(startDateString);
     }
     @ShellMethod(value = "List Screening", key = "list screening")
     public String listScreening(){
         return screeningService.getAll();
-
     }
 }
