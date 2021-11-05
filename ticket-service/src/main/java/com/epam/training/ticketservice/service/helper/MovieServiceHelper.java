@@ -13,11 +13,10 @@ public class MovieServiceHelper implements ServiceHelper<Movie> {
 
     @Override
     public Pair<Boolean, String> isValid(Movie movie) {
-        int movieLength = movie.getLength();
-        Objects.requireNonNull(movie, "Movie cannot be null");
-        Objects.requireNonNull(movie.getTitle(), "Movie cannot be null");
-        Objects.requireNonNull(movie.getGenre(), "Movie cannot be null");
-        if (1 > movieLength || 1260 < movieLength) {
+        Objects.requireNonNull(movie,"Movie cannot be null");
+        Objects.requireNonNull(movie.getTitle(),"Movie cannot be null");
+        Objects.requireNonNull(movie.getGenre(),"Movie cannot be null");
+        if (1 > movie.getLength() || 1260 < movie.getLength()) {
             return new Pair<>(false, "Please provide valid length.");
         }
         return new Pair<>(true, "Its valid");

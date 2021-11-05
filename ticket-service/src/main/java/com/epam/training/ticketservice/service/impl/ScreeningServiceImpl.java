@@ -1,17 +1,12 @@
 package com.epam.training.ticketservice.service.impl;
 
-import com.epam.training.ticketservice.models.Movie;
 import com.epam.training.ticketservice.models.Pair;
 import com.epam.training.ticketservice.models.Screening;
-import com.epam.training.ticketservice.persistance.entity.MovieDto;
 import com.epam.training.ticketservice.persistance.entity.ScreeningDto;
 import com.epam.training.ticketservice.persistance.repository.MovieRepository;
 import com.epam.training.ticketservice.persistance.repository.RoomRepository;
 import com.epam.training.ticketservice.persistance.repository.ScreeningRepository;
-import com.epam.training.ticketservice.service.MovieService;
-import com.epam.training.ticketservice.service.RoomService;
 import com.epam.training.ticketservice.service.ScreeningService;
-import com.epam.training.ticketservice.service.helper.MovieServiceHelper;
 import com.epam.training.ticketservice.service.helper.ScreenServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +25,10 @@ public class ScreeningServiceImpl implements ScreeningService {
     private final RoomRepository roomRepository;
 
     @Autowired
-    public ScreeningServiceImpl(ScreeningRepository screeningRepository, MovieRepository movieRepository, RoomRepository roomRepository) {
+    public ScreeningServiceImpl(
+            ScreeningRepository screeningRepository,
+            MovieRepository movieRepository,
+            RoomRepository roomRepository) {
         this.screeningRepository = screeningRepository;
         this.movieRepository = movieRepository;
         this.roomRepository = roomRepository;
@@ -61,27 +59,28 @@ public class ScreeningServiceImpl implements ScreeningService {
     }
 
     @Override
-    public String create(Screening screening){
-        Pair<Boolean, String> validator =helper.isValid(screening);
+    public String create(Screening screening) {
+        Pair<Boolean, String> validator = helper.isValid(screening);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {
-            if(!helper.IsMovieValid(movieRepository,screening.getMovieTitle())){
-               return  "Movie does not exist";
+            if (!helper.isMovieValid(movieRepository,screening.getMovieTitle())) {
+                return  "Movie does not exist";
             }
             screening.setMovie(movieRepository.findByTitle(screening.getMovieTitle()).get());
 
-            if(!helper.IsRoomValid(roomRepository,screening.getRoomName())){
+            if (!helper.isRoomValid(roomRepository,screening.getRoomName())) {
                 return "Room does not exist";
             }
             try {
-                if(helper.IsDateValid(screeningRepository.findAll().stream()
+                if (helper.isDateValid(screeningRepository.findAll().stream()
                         .map(this::convertDtoToModel)
-                        .collect(Collectors.toList()),screening)){
+                        .collect(Collectors.toList()),screening)) {
                     screeningRepository.save(convertModelToDto(screening));
-                    return screening.getStartOfScreeningString()+ " CREATED";
+                    return screening.getStartOfScreeningString() + " CREATED";
                 }
             } catch (ParseException e) {
+                //Should throw some errors message
                 e.printStackTrace();
             }
             return "";
@@ -96,7 +95,7 @@ public class ScreeningServiceImpl implements ScreeningService {
     @Override
     public Screening convertDtoToModel(ScreeningDto dto) {
         var screening = new Screening(dto.getMovieTitle(), dto.getRoomName(),dto.getDateOfScreening());
-        if(helper.IsMovieValid(movieRepository,dto.getMovieTitle())){
+        if (helper.isMovieValid(movieRepository,dto.getMovieTitle())) {
             screening.setMovie(movieRepository.findByTitle(dto.getMovieTitle()).get());
         }
         return screening;

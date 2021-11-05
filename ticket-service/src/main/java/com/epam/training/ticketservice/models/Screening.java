@@ -63,10 +63,19 @@ public class Screening {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         Screening screening = (Screening) o;
-        return screeningTime == screening.screeningTime && Objects.equals(movieTitle, screening.movieTitle) && Objects.equals(roomName, screening.roomName) && Objects.equals(startOfScreeningString, screening.startOfScreeningString);
+        return screeningTime == screening.screeningTime
+                && Objects.equals(movieTitle, screening.movieTitle)
+                && Objects.equals(roomName, screening.roomName)
+                && Objects.equals(startOfScreeningString, screening.startOfScreeningString);
     }
 
     @Override
@@ -76,7 +85,7 @@ public class Screening {
 
     @Override
     public String toString() {
-        return movieTitle + "(" + movie.getGenre() + " , "+ movie.getLength()
+        return movieTitle + "(" + movie.getGenre() + " , " + movie.getLength()
                 + " minutes)" + ", screened in room " + roomName + ", at " + startOfScreeningString + "\n";
     }
 }

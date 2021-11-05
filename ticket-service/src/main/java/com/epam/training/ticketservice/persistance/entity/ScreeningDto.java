@@ -54,10 +54,18 @@ public class ScreeningDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
         ScreeningDto that = (ScreeningDto) o;
-        return Objects.equals(movieTitle, that.movieTitle) && Objects.equals(roomName, that.roomName) && Objects.equals(dateOfScreening, that.dateOfScreening);
+        return Objects.equals(movieTitle, that.movieTitle)
+                && Objects.equals(roomName, that.roomName)
+                && Objects.equals(dateOfScreening, that.dateOfScreening);
     }
 
     @Override

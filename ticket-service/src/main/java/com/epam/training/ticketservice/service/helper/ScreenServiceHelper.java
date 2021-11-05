@@ -18,35 +18,40 @@ public class ScreenServiceHelper implements ServiceHelper<Screening> {
 
     private static final int breakTimeInMinutes = 10;
 
-    public boolean IsMovieValid(MovieRepository repository, String title){
+    public boolean isMovieValid(MovieRepository repository, String title) {
         var searchedMovie = repository.findByTitle(title);
         return searchedMovie.isPresent();
     }
-    public boolean IsRoomValid(RoomRepository repository, String name){
+
+    public boolean isRoomValid(RoomRepository repository, String name) {
         var searchedRoom = repository.findByName(name);
         return searchedRoom.isPresent();
     }
-    public boolean IsDateValid(List<Screening> screenings, Screening screeningToValidate) throws ParseException {
-        var dateToValidateStartInMinutes = convertStringToDate(screeningToValidate.getStartOfScreeningString()).getMinutes();
+
+    public boolean isDateValid(List<Screening> screenings, Screening screeningToValidate) throws ParseException {
+        var dateToValidateStartInMinutes = convertStringToDate(screeningToValidate
+                .getStartOfScreeningString())
+                .getMinutes();
         var dateToValidateFinishInMinutes = dateToValidateStartInMinutes + screeningToValidate.getScreeningTime();
         var validatorArray = new ArrayList<Boolean>();
         screenings.forEach(screening -> {
-            try{
+            try {
                 var screeningStart = convertStringToDate(screening.getStartOfScreeningString()).getMinutes();
                 var screeningEnd = screeningStart + screening.getScreeningTime();
-                if(dateToValidateStartInMinutes > screeningEnd + 10 || dateToValidateFinishInMinutes + 10 < screeningStart){
+                if (dateToValidateStartInMinutes > screeningEnd + breakTimeInMinutes
+                        || dateToValidateFinishInMinutes + breakTimeInMinutes < screeningStart) {
                     validatorArray.add(true);
-                }
-                else {
+                } else {
                     validatorArray.add(false);
                 }
 
-            }catch (ParseException e) {
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
         });
         return !validatorArray.contains(false);
     }
+
     private Date convertStringToDate(String dateAsString) throws ParseException {
         var format = "YYYY-MM-DD hh:mm";
         return new SimpleDateFormat(format).parse(dateAsString);
