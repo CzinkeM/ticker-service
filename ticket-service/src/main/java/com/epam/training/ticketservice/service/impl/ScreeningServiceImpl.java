@@ -103,6 +103,6 @@ public class ScreeningServiceImpl implements ScreeningService {
 
     @Override
     public ScreeningDto convertModelToDto(Screening model) {
-        return new ScreeningDto(model.getMovieTitle(), model.getRoomName(), model.getStartOfScreeningString());
+        return new ScreeningDto(null, model.getMovieTitle(), model.getRoomName(), model.getStartOfScreeningString());
     }
 }

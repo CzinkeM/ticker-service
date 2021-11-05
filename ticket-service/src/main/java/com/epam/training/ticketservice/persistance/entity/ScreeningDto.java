@@ -22,7 +22,8 @@ public class ScreeningDto {
     public ScreeningDto() {
     }
 
-    public ScreeningDto(String movieTitle, String roomName, String dateOfScreening) {
+    public ScreeningDto(Integer id,String movieTitle, String roomName, String dateOfScreening) {
+        this.id = id;
         this.movieTitle = movieTitle;
         this.roomName = roomName;
         this.dateOfScreening = dateOfScreening;

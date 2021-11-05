@@ -1,6 +1,8 @@
 package com.epam.training.ticketservice.cli.command;
 
 import com.epam.training.ticketservice.models.Movie;
+import com.epam.training.ticketservice.service.MovieService;
+import com.epam.training.ticketservice.service.UserService;
 import com.epam.training.ticketservice.service.impl.MovieServiceImpl;
 import com.epam.training.ticketservice.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,11 @@ import org.springframework.shell.standard.ShellMethodAvailability;
 @ShellComponent
 public class MovieCommand implements CommandAvailability {
 
-    private final MovieServiceImpl movieService;
-    private final UserServiceImpl userService;
+    private final MovieService movieService;
+    private final UserService userService;
 
     @Autowired
-    public MovieCommand(MovieServiceImpl movieService, UserServiceImpl userService) {
+    public MovieCommand(MovieService movieService, UserService userService) {
         this.movieService = movieService;
         this.userService = userService;
     }

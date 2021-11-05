@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String describeAccount() {
-        if (loggedInUser.getRole() == Role.ADMIN) {
+        if (loggedInUser != null) {
             return "Signed in with privileged account " + loggedInUser.getUsername();
         }
         return "You are not signed in.";
@@ -82,6 +82,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto convertModelToDto(User user) {
-        return null;
+        return new UserDto(null ,user.getUsername(), user.getPassword(), user.getRole());
     }
 }
