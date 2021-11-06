@@ -1,5 +1,6 @@
 package com.epam.training.ticketservice.cli.command;
 
+import com.epam.training.ticketservice.service.UserService;
 import com.epam.training.ticketservice.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -8,10 +9,10 @@ import org.springframework.shell.standard.ShellMethod;
 @ShellComponent
 public class UserCommand {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Autowired
-    public UserCommand(UserServiceImpl userService) {
+    public UserCommand(UserService userService) {
         this.userService = userService;
     }
 

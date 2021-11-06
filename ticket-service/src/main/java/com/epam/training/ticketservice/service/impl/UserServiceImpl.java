@@ -82,6 +82,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto convertModelToDto(User user) {
-        return new UserDto(null ,user.getUsername(), user.getPassword(), user.getRole());
+        return new UserDto(null, user.getUsername(), user.getPassword(), user.getRole());
     }
 }
