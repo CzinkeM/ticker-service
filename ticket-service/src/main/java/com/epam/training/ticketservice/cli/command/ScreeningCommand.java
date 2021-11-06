@@ -35,7 +35,7 @@ public class ScreeningCommand implements CommandAvailability {
         return screeningService.delete(startDateString);
     }
 
-    @ShellMethod(value = "List Screening", key = "list screening")
+    @ShellMethod(value = "List Screening", key = "list screenings")
     public String listScreening() {
         return screeningService.getAll();
     }
