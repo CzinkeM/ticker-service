@@ -33,24 +33,12 @@ public class ScreeningDto {
         return movieTitle;
     }
 
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
-    }
-
     public String getRoomName() {
         return roomName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
     public String getDateOfScreening() {
         return dateOfScreening;
-    }
-
-    public void setDateOfScreening(String dateOfScreening) {
-        this.dateOfScreening = dateOfScreening;
     }
 
     @Override

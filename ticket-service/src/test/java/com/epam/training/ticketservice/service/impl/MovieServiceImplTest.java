@@ -25,26 +25,6 @@ public class MovieServiceImplTest {
         underTest = new MovieServiceImpl(movieRepository);
     }
     @Test
-    public void convertDtoToModelShouldReturnMovieWhenMovieDtoIsValid(){
-        //Given
-        MovieDto given = new MovieDto(null, "Star Wars", "sci-fi", 120);
-        Movie expected = new Movie("Star Wars", "sci-fi", 120);
-        //When
-        Movie actual = underTest.convertDtoToModel(given);
-        //Then
-        Assertions.assertEquals(expected, actual);
-    }
-    @Test
-    public void convertModelToDtoShouldReturnMovieDtoWhenMovieIsValid(){
-        //Given
-        Movie given = new Movie( "Star Wars", "sci-fi", 120);
-        MovieDto expected = new MovieDto(null,"Star Wars", "sci-fi", 120);
-        //When
-        MovieDto actual = underTest.convertModelToDto(given);
-        //Then
-        Assertions.assertEquals(expected, actual);
-    }
-    @Test
     public void updateShouldReturnCorrespondingStringWhenMovieIsNull(){
         Movie movie = null;
         Assertions.assertThrows(NullPointerException.class,()->underTest.update(movie));

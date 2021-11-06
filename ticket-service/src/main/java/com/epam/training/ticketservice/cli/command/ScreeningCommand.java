@@ -1,7 +1,10 @@
 package com.epam.training.ticketservice.cli.command;
 
+import com.epam.training.ticketservice.models.Movie;
+import com.epam.training.ticketservice.persistance.entity.ScreeningDto;
+import com.epam.training.ticketservice.service.helper.DateConverter;
 import com.epam.training.ticketservice.models.Screening;
-import com.epam.training.ticketservice.models.User;
+import com.epam.training.ticketservice.service.MovieService;
 import com.epam.training.ticketservice.service.ScreeningService;
 import com.epam.training.ticketservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +13,27 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
 
+import java.text.ParseException;
+import java.util.Date;
+
 @ShellComponent
 public class ScreeningCommand implements CommandAvailability {
 
     private final ScreeningService screeningService;
+    private final MovieService movieService;
     private final UserService userService;
 
     @Autowired
-    public ScreeningCommand(ScreeningService screeningService, UserService userService) {
+    public ScreeningCommand(ScreeningService screeningService, MovieService movieService, UserService userService) {
         this.screeningService = screeningService;
+        this.movieService = movieService;
         this.userService = userService;
     }
 
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(value = "Create Screening", key = "create screening")
     public String createScreening(String movieName, String roomName, String  startDateString) {
-        Screening screening = new Screening(movieName,roomName,startDateString);
-        return screeningService.create(screening);
+        return screeningService.create(new ScreeningDto(null,movieName,roomName,startDateString));
     }
 
     @ShellMethodAvailability("isAvailable")

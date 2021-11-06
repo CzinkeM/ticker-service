@@ -6,7 +6,10 @@ import com.epam.training.ticketservice.persistance.entity.ScreeningDto;
 import com.epam.training.ticketservice.persistance.repository.MovieRepository;
 import com.epam.training.ticketservice.persistance.repository.RoomRepository;
 import com.epam.training.ticketservice.persistance.repository.ScreeningRepository;
+import com.epam.training.ticketservice.service.MovieService;
+import com.epam.training.ticketservice.service.RoomService;
 import com.epam.training.ticketservice.service.ScreeningService;
+import com.epam.training.ticketservice.service.helper.ListPrettier;
 import com.epam.training.ticketservice.service.helper.ScreenServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,33 +20,31 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ScreeningServiceImpl implements ScreeningService {
+public class ScreeningServiceImpl implements ScreeningService, ListPrettier<Screening> {
 
-    private final ScreenServiceHelper helper = new ScreenServiceHelper();
+    private final ScreenServiceHelper helper;
     private final ScreeningRepository screeningRepository;
-    private final MovieRepository movieRepository;
-    private final RoomRepository roomRepository;
+    private final MovieService movieService;
+    private final RoomService roomService;
 
     @Autowired
     public ScreeningServiceImpl(
             ScreeningRepository screeningRepository,
-            MovieRepository movieRepository,
-            RoomRepository roomRepository) {
+            MovieService movieService,
+            RoomService roomService) {
         this.screeningRepository = screeningRepository;
-        this.movieRepository = movieRepository;
-        this.roomRepository = roomRepository;
+        this.movieService = movieService;
+        this.roomService = roomService;
+        helper = new ScreenServiceHelper(screeningRepository,roomService,movieService);
     }
 
     @Override
     public String getAll() {
-        List<Screening> listOfScreening = screeningRepository
-                .findAll().stream()
-                .map(this::convertDtoToModel)
-                .collect(Collectors.toList());
+        List<Screening> listOfScreening = helper.convertDtoListToModelList(screeningRepository.findAll());
         if (listOfScreening.isEmpty()) {
             return "There are no screenings";
         }
-        return helper.prettyListString(listOfScreening);
+        return prettyListString(listOfScreening);
     }
 
     @Override
@@ -59,50 +60,18 @@ public class ScreeningServiceImpl implements ScreeningService {
     }
 
     @Override
-    public String create(Screening screening) {
-        Pair<Boolean, String> validator = helper.isValid(screening);
-        if (!validator.getFirst()) {
-            return validator.getSecond();
-        } else {
-            if (!helper.isMovieValid(movieRepository,screening.getMovieTitle())) {
-                return  "Movie does not exist";
-            }
-            screening.setMovie(movieRepository.findByTitle(screening.getMovieTitle()).get());
-
-            if (!helper.isRoomValid(roomRepository,screening.getRoomName())) {
-                return "Room does not exist";
-            }
-            try {
-                if (helper.isDateValid(screeningRepository.findAll().stream()
-                        .map(this::convertDtoToModel)
-                        .collect(Collectors.toList()),screening)) {
-                    screeningRepository.save(convertModelToDto(screening));
-                    return screening.getStartOfScreeningString() + " CREATED";
-                }
-            } catch (ParseException e) {
-                //Should throw some errors message
-                e.printStackTrace();
-            }
-            return "";
+    public String create(ScreeningDto screeningDto) {
+        var validator = helper.isValid(screeningDto);
+        if (validator.getFirst()) {
+            screeningRepository.save(screeningDto);
+            return "Created";
         }
+
+        return validator.getSecond();
     }
 
     @Override
-    public String update(Screening screening) {
+    public String update(ScreeningDto screeningDto) {
         return "You can not update screenings";
-    }
-
-    @Override
-    public Screening convertDtoToModel(ScreeningDto dto) {
-        var screening = new Screening(dto.getMovieTitle(), dto.getRoomName(),dto.getDateOfScreening());
-        if (helper.isMovieValid(movieRepository,dto.getMovieTitle())) {
-            screening.setMovie(movieRepository.findByTitle(dto.getMovieTitle()).get());
-        }
-        return screening;
-    }
-
-    @Override
-    public ScreeningDto convertModelToDto(Screening model) {
-        return new ScreeningDto(null, model.getMovieTitle(), model.getRoomName(), model.getStartOfScreeningString());
     }
 }

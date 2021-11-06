@@ -6,5 +6,5 @@ import com.epam.training.ticketservice.persistance.entity.RoomDto;
 import com.epam.training.ticketservice.persistance.entity.ScreeningDto;
 import com.epam.training.ticketservice.service.helper.GenericConverter;
 
-public interface ScreeningService extends GenericService<Screening>, GenericConverter<Screening, ScreeningDto> {
+public interface ScreeningService extends GenericService<ScreeningDto> {
 }

@@ -2,17 +2,28 @@ package com.epam.training.ticketservice.service.helper;
 
 import com.epam.training.ticketservice.models.Movie;
 import com.epam.training.ticketservice.models.Pair;
+import com.epam.training.ticketservice.models.Screening;
+import com.epam.training.ticketservice.persistance.entity.MovieDto;
+import com.epam.training.ticketservice.persistance.entity.ScreeningDto;
+import com.epam.training.ticketservice.persistance.repository.MovieRepository;
 
 import java.util.List;
 import java.util.Objects;
 
-public class MovieServiceHelper implements ServiceHelper<Movie> {
+public class MovieServiceHelper implements ServiceHelper<Movie>, GenericConverter<Movie, MovieDto> {
 
-    public MovieServiceHelper() {
+    private final MovieRepository repository;
+
+    public MovieServiceHelper(MovieRepository repository) {
+        this.repository = repository;
+    }
+
+    public Movie getMovieByTitle(String movieName) {
+        return repository.findByTitle(movieName).map(this::convertDtoToModel).orElse(null);
     }
 
     @Override
-    public Pair<Boolean, String> isValid(Movie movie) {
+    public Pair<Boolean, String> isParamsValid(Movie movie) {
         Objects.requireNonNull(movie,"Movie cannot be null");
         Objects.requireNonNull(movie.getTitle(),"Movie cannot be null");
         Objects.requireNonNull(movie.getGenre(),"Movie cannot be null");
@@ -23,7 +34,12 @@ public class MovieServiceHelper implements ServiceHelper<Movie> {
     }
 
     @Override
-    public String prettyListString(List<Movie> movies) {
-        return ServiceHelper.super.prettyListString(movies);
+    public MovieDto convertModelToDto(Movie movie) {
+        return new MovieDto(null, movie.getTitle(), movie.getGenre(), movie.getLength());
+    }
+
+    @Override
+    public Movie convertDtoToModel(MovieDto movieDto) {
+        return new Movie(movieDto.getTitle(), movieDto.getTitle(), movieDto.getLength());
     }
 }

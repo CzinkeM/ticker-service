@@ -1,15 +1,18 @@
 package com.epam.training.ticketservice.service.helper;
 
+import com.epam.training.ticketservice.models.Movie;
 import com.epam.training.ticketservice.models.Pair;
 import com.epam.training.ticketservice.models.Room;
+import com.epam.training.ticketservice.persistance.entity.MovieDto;
+import com.epam.training.ticketservice.persistance.entity.RoomDto;
 
 import java.util.List;
 import java.util.Objects;
 
-public class RoomServiceHelper implements ServiceHelper<Room> {
+public class RoomServiceHelper implements ServiceHelper<Room>, GenericConverter<Room, RoomDto> {
 
     @Override
-    public Pair<Boolean, String> isValid(Room room) {
+    public Pair<Boolean, String> isParamsValid(Room room) {
         Objects.requireNonNull(room, "Movie cannot be null");
         Objects.requireNonNull(room.getName(), "Movie cannot be null");
 
@@ -25,7 +28,12 @@ public class RoomServiceHelper implements ServiceHelper<Room> {
     }
 
     @Override
-    public String prettyListString(List<Room> movies) {
-        return ServiceHelper.super.prettyListString(movies);
+    public Room convertDtoToModel(RoomDto dto) {
+        return new Room(dto.getName(), dto.getRows(), dto.getColumn());
+    }
+
+    @Override
+    public RoomDto convertModelToDto(Room model) {
+        return new RoomDto(null, model.getName(), model.getRows(), model.getColumns());
     }
 }

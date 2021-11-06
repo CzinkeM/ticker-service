@@ -67,7 +67,7 @@ public class UserServiceImplTest {
     }
     @Test
     public void signOutShouldReturnCorrespondingStringWhenUserNotLoggedIn() {
-        var expected = "You are not signed in.";
+        var expected = "You are not signed in";
 
         var actual = underTest.signOut();
 
@@ -84,7 +84,7 @@ public class UserServiceImplTest {
     }
     @Test
     public void describeAccountShouldReturnCorrespondingStringWhenUserLoggedIn() {
-        var expected = "Signed in with privileged account admin";
+        var expected = "Signed in with privileged account 'admin'";
 
         underTest.loggedInUser = new User("admin","admin",Role.ADMIN);
         var actual = underTest.describeAccount();
@@ -93,7 +93,7 @@ public class UserServiceImplTest {
     }
     @Test
     public void describeAccountShouldReturnCorrespondingStringWhenUserNotLoggedIn() {
-        var expected = "You are not signed in.";
+        var expected = "You are not signed in";
 
         underTest.loggedInUser = null;
         var actual = underTest.describeAccount();

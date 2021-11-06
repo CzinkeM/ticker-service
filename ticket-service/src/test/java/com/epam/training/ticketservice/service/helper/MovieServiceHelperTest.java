@@ -2,9 +2,11 @@ package com.epam.training.ticketservice.service.helper;
 
 import com.epam.training.ticketservice.models.Movie;
 import com.epam.training.ticketservice.models.Pair;
+import com.epam.training.ticketservice.persistance.repository.MovieRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -12,10 +14,12 @@ public class MovieServiceHelperTest {
 
 
     private MovieServiceHelper underTest;
+    private MovieRepository repository;
 
     @BeforeEach
     public void init(){
-        underTest = new MovieServiceHelper();
+        repository = Mockito.mock(MovieRepository.class);
+        underTest = new MovieServiceHelper(repository);
     }
 
     @Test
@@ -24,7 +28,7 @@ public class MovieServiceHelperTest {
         Movie given = null;
         //When
         //Then
-        Assertions.assertThrows(NullPointerException.class,() -> underTest.isValid(given));
+        Assertions.assertThrows(NullPointerException.class,() -> underTest.isParamsValid(given));
     }
     @Test
     public void isValidShouldThrowNullExceptionWhenMovieTitleIsNull(){
@@ -32,7 +36,7 @@ public class MovieServiceHelperTest {
         Movie given = new Movie(null, "sci-fi", 120);
         //When
         //Then
-        Assertions.assertThrows(NullPointerException.class,() -> underTest.isValid(given));
+        Assertions.assertThrows(NullPointerException.class,() -> underTest.isParamsValid(given));
     }
     @Test
     public void isValidShouldThrowNullExceptionWhenMovieGenreIsNull(){
@@ -40,7 +44,7 @@ public class MovieServiceHelperTest {
         Movie given = new Movie("Star Wars", null, 120);
         //When
         //Then
-        Assertions.assertThrows(NullPointerException.class,() -> underTest.isValid(given));
+        Assertions.assertThrows(NullPointerException.class,() -> underTest.isParamsValid(given));
     }
     @Test
     public void isValidShouldThrowNullExceptionWhenMovieTitleAndGenreIsNull(){
@@ -48,7 +52,7 @@ public class MovieServiceHelperTest {
         Movie given = new Movie(null, null, 120);
         //When
         //Then
-        Assertions.assertThrows(NullPointerException.class,() -> underTest.isValid(given));
+        Assertions.assertThrows(NullPointerException.class,() -> underTest.isParamsValid(given));
     }
     @Test
     public void isValidShouldReturnWithPairOfFalseAndStringWhenMovieLengthIsUnderLowerLimit(){
@@ -56,7 +60,7 @@ public class MovieServiceHelperTest {
         Movie given = new Movie("Star Wars", "sci-fi", -1);
         Pair<Boolean, String> expected = new Pair<>(false, "Please provide valid length.");
         //When
-        Pair<Boolean, String> actual = underTest.isValid(given);
+        Pair<Boolean, String> actual = underTest.isParamsValid(given);
         //Then
         Assertions.assertEquals(expected, actual);
     }
@@ -66,7 +70,7 @@ public class MovieServiceHelperTest {
         Movie given = new Movie("Star Wars", "sci-fi", 1261);
         Pair<Boolean, String> expected = new Pair<>(false, "Please provide valid length.");
         //When
-        Pair<Boolean, String> actual = underTest.isValid(given);
+        Pair<Boolean, String> actual = underTest.isParamsValid(given);
         //Then
         Assertions.assertEquals(expected, actual);
     }
@@ -76,21 +80,7 @@ public class MovieServiceHelperTest {
         Movie given = new Movie("Star Wars", "sci-fi", 120);
         Pair<Boolean, String> expected = new Pair<>(true, "Its valid");
         //When
-        Pair<Boolean, String> actual = underTest.isValid(given);
-        //Then
-        Assertions.assertEquals(expected, actual);
-    }
-
-
-    @Test
-    public void prettyListStringShouldReturnStringWhenParameterIsCorrect(){
-        //Given
-        Movie testMovie1 = new Movie("Star Wars", "sci-fi", 120);
-        Movie testMovie2 = new Movie("Dűne", "sci-fi", 133);
-        List<Movie> testMovieList = List.of(testMovie1,testMovie2);
-        String expected = "Star Wars ( sci-fi, 120 minutes)\nDűne ( sci-fi, 133 minutes)\n";
-        //When
-        String actual = underTest.prettyListString(testMovieList);
+        Pair<Boolean, String> actual = underTest.isParamsValid(given);
         //Then
         Assertions.assertEquals(expected, actual);
     }

@@ -5,7 +5,7 @@ import com.epam.training.ticketservice.models.Pair;
 import com.epam.training.ticketservice.persistance.entity.MovieDto;
 import com.epam.training.ticketservice.persistance.repository.MovieRepository;
 import com.epam.training.ticketservice.service.MovieService;
-import com.epam.training.ticketservice.service.helper.GenericConverter;
+import com.epam.training.ticketservice.service.helper.ListPrettier;
 import com.epam.training.ticketservice.service.helper.MovieServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,36 +13,29 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
-public class MovieServiceImpl implements MovieService, GenericConverter<Movie, MovieDto> {
+public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
+    private final MovieServiceHelper helper;
 
     @Autowired
     public MovieServiceImpl(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
+        this.helper = new MovieServiceHelper(movieRepository);
     }
 
     @PostConstruct
     public void init() {
-        MovieDto starWars = new MovieDto(null, "Star Wars", "sci-fi", 120);
-        MovieDto dune = new MovieDto(null, "Dűne", "sci-fi", 134);
-        List<MovieDto> listOfMovies = Stream.of(starWars,dune).collect(Collectors.toList());
-        movieRepository.saveAll(listOfMovies);
     }
 
     @Override
     public String getAll() {
-        List<Movie> listOfMovies = movieRepository
-                .findAll().stream()
-                .map(this::convertDtoToModel)
-                .collect(Collectors.toList());
+        List<Movie> listOfMovies = helper.convertDtoListToModelList(movieRepository.findAll());
         if (listOfMovies.isEmpty()) {
             return "There are no movies at the moment";
         }
-        return new MovieServiceHelper().prettyListString(listOfMovies);
+        return prettyListString(listOfMovies);
     }
 
     @Override
@@ -63,18 +56,18 @@ public class MovieServiceImpl implements MovieService, GenericConverter<Movie, M
 
     @Override
     public String create(Movie movie) {
-        Pair<Boolean, String> validator = new MovieServiceHelper().isValid(movie);
+        Pair<Boolean, String> validator = helper.isParamsValid(movie);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {
-            movieRepository.save(convertModelToDto(movie));
+            movieRepository.save(helper.convertModelToDto(movie));
             return movie.getTitle() + " CREATED";
         }
     }
 
     @Override
     public String update(Movie movie) {
-        Pair<Boolean, String>  validator = new MovieServiceHelper().isValid(movie);
+        Pair<Boolean, String>  validator = helper.isParamsValid(movie);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {
@@ -94,11 +87,15 @@ public class MovieServiceImpl implements MovieService, GenericConverter<Movie, M
         }
     }
 
-    public Movie convertDtoToModel(MovieDto dto) {
-        return new Movie(dto.getTitle(), dto.getGenre(), dto.getLength());
+    @Override
+    public Movie getMovieByName(String nameOfMovie) {
+        return helper.getMovieByTitle(nameOfMovie);
     }
 
-    public MovieDto convertModelToDto(Movie model) {
-        return new MovieDto(null, model.getTitle(), model.getGenre(), model.getLength());
+    @Override
+    public boolean isMovieExist(String movieName) {
+        return movieRepository.findByTitle(movieName).isPresent();
     }
+
+
 }

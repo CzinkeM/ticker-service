@@ -28,7 +28,7 @@ public class RoomServiceImplTest {
     @Test
     public void getAllShouldReturnCorrespondingStringWhenListIsEmpty(){
         //given
-        String expected =  "There are no movies at the moment";
+        String expected =  "There are no rooms at the moment";
         Mockito.when(roomRepository.findAll()).thenReturn(List.of());
         //when
         String actual = underTest.getAll();
@@ -198,25 +198,5 @@ public class RoomServiceImplTest {
         String actual = underTest.update(room);
 
         Assertions.assertEquals(expected,actual);
-    }
-    @Test
-    public void convertDtoToModelShouldReturnRoomWhenRoomDtoIsValid(){
-        //Given
-        RoomDto given = new RoomDto(null, "1", 10, 12);
-        Room expected = new Room("1", 10, 12);
-        //When
-        Room actual = underTest.convertDtoToModel(given);
-        //Then
-        Assertions.assertEquals(expected, actual);
-    }
-    @Test
-    public void convertModelToDtoShouldReturnRoomDtoWhenRoomIsValid(){
-        //Given
-        Room given =new Room("1", 10, 12);
-        RoomDto expected = new RoomDto(null, "1", 10, 12);
-        //When
-        RoomDto actual = underTest.convertModelToDto(given);
-        //Then
-        Assertions.assertEquals(expected, actual);
     }
 }

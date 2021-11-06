@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,15 +48,15 @@ public class UserServiceImpl implements UserService {
             loggedInUser = null;
             return "You are sign out successfully!";
         }
-        return "You are not signed in.";
+        return "You are not signed in";
     }
 
     @Override
     public String describeAccount() {
         if (loggedInUser != null) {
-            return "Signed in with privileged account " + loggedInUser.getUsername();
+            return "Signed in with privileged account '" + loggedInUser.getUsername() + "'";
         }
-        return "You are not signed in.";
+        return "You are not signed in";
     }
 
     @Override
@@ -76,12 +75,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User convertDtoToModel(UserDto userDto) {
-        return new User(userDto.getUsername(), userDto.getPassword(), userDto.getRole());
+    public User convertDtoToModel(UserDto dto) {
+        return new User(dto.getUsername(), dto.getPassword(), dto.getRole());
     }
 
     @Override
-    public UserDto convertModelToDto(User user) {
-        return new UserDto(null, user.getUsername(), user.getPassword(), user.getRole());
+    public UserDto convertModelToDto(User model) {
+        return new UserDto(null, model.getUsername(), model.getPassword(), model.getRole());
     }
 }

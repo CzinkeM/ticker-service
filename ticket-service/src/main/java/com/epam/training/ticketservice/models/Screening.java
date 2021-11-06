@@ -1,6 +1,7 @@
 package com.epam.training.ticketservice.models;
 
 import com.epam.training.ticketservice.persistance.entity.MovieDto;
+import com.epam.training.ticketservice.service.helper.DateConverter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,83 +10,52 @@ import java.util.Objects;
 
 public class Screening {
 
-    private String movieTitle;
+    private Movie movie;
     private String roomName;
-    private String startOfScreeningString;
-    private int screeningTime;
-    private MovieDto movie;
+    private String startDateString;
+    private Date endDate;
+    private Date startDate;
 
-    public Screening(String movieTitle, String roomName, String startOfScreeningString) {
-        this.movieTitle = movieTitle;
+    public Screening(Movie movie, String roomName, String startDate) {
+        this.movie = movie;
         this.roomName = roomName;
-        this.startOfScreeningString = startOfScreeningString;
+        this.startDateString = startDate;
+        this.startDate = DateConverter.convertStringToDate(startDate);
+        this.endDate = calculateEndOfScreening();
     }
 
-    public String getStartOfScreeningString() {
-        return startOfScreeningString;
+    private Date calculateEndOfScreening() {
+        var movieLengthInMilliseconds = movie.getLength() * 60000L;
+        return new Date(startDate.getTime() + movieLengthInMilliseconds);
     }
 
-    public void setStartOfScreeningString(String startOfScreeningString) {
-        this.startOfScreeningString = startOfScreeningString;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public int getScreeningTime() {
-        return screeningTime;
-    }
-
-    public void setScreeningTime(int screeningTime) {
-        this.screeningTime = screeningTime;
-    }
-
-    public String getMovieTitle() {
-        return movieTitle;
-    }
-
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
+    public Date getStartDate() {
+        return startDate;
     }
 
     public String getRoomName() {
         return roomName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public String getMovieName() {
+        return movie.getTitle();
     }
 
-    public MovieDto getMovie() {
+    public String getStartDateString() {
+        return startDateString;
+    }
+
+    public Movie getMovie() {
         return movie;
-    }
-
-    public void setMovie(MovieDto movie) {
-        this.movie = movie;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Screening screening = (Screening) o;
-        return screeningTime == screening.screeningTime
-                && Objects.equals(movieTitle, screening.movieTitle)
-                && Objects.equals(roomName, screening.roomName)
-                && Objects.equals(startOfScreeningString, screening.startOfScreeningString);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(movieTitle, roomName, startOfScreeningString, screeningTime);
     }
 
     @Override
     public String toString() {
-        return movieTitle + "(" + movie.getGenre() + " , " + movie.getLength()
-                + " minutes)" + ", screened in room " + roomName + ", at " + startOfScreeningString + "\n";
+        return movie.getTitle() + " (" + movie.getGenre() + ", " + movie.getLength()
+                + " minutes)" + ", screened in room " + roomName + ", at " + startDate + "\n";
     }
 }

@@ -2,11 +2,10 @@ package com.epam.training.ticketservice.service.impl;
 
 import com.epam.training.ticketservice.models.Pair;
 import com.epam.training.ticketservice.models.Room;
-import com.epam.training.ticketservice.persistance.entity.MovieDto;
 import com.epam.training.ticketservice.persistance.entity.RoomDto;
 import com.epam.training.ticketservice.persistance.repository.RoomRepository;
 import com.epam.training.ticketservice.service.RoomService;
-import com.epam.training.ticketservice.service.helper.MovieServiceHelper;
+import com.epam.training.ticketservice.service.helper.ListPrettier;
 import com.epam.training.ticketservice.service.helper.RoomServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,35 +14,34 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class RoomServiceImpl implements RoomService {
 
     private final RoomRepository roomRepository;
+    private final RoomServiceHelper helper;
 
     @Autowired
     public RoomServiceImpl(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
+        this.helper = new RoomServiceHelper();
     }
 
     @PostConstruct
     public void init() {
+        /*
         RoomDto roomDto = new RoomDto(null, "room-1", 10, 10);
         roomRepository.save(roomDto);
+         */
     }
 
     @Override
     public String getAll() {
-        List<Room> listOfRooms = roomRepository
-                .findAll()
-                .stream()
-                .map(this::convertDtoToModel)
-                .collect(Collectors.toList());
+        List<Room> listOfRooms = helper.convertDtoListToModelList(roomRepository.findAll());
         if (listOfRooms.isEmpty()) {
-            return "There are no movies at the moment";
+            return "There are no rooms at the moment";
         }
-        return new RoomServiceHelper().prettyListString(listOfRooms);
+        return prettyListString(listOfRooms);
     }
 
     @Override
@@ -63,18 +61,18 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public String create(Room room) {
-        Pair<Boolean, String> validator = new RoomServiceHelper().isValid(room);
+        Pair<Boolean, String> validator = new RoomServiceHelper().isParamsValid(room);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {
-            roomRepository.save(convertModelToDto(room));
+            roomRepository.save(helper.convertModelToDto(room));
             return room.getName() + " CREATED";
         }
     }
 
     @Override
     public String update(Room room) {
-        Pair<Boolean, String>  validator = new RoomServiceHelper().isValid(room);
+        Pair<Boolean, String>  validator = new RoomServiceHelper().isParamsValid(room);
         if (!validator.getFirst()) {
             return validator.getSecond();
         } else {
@@ -95,12 +93,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room convertDtoToModel(RoomDto roomDto) {
-        return new Room(roomDto.getName(), roomDto.getRows(), roomDto.getColumn());
-    }
-
-    @Override
-    public RoomDto convertModelToDto(Room room) {
-        return new RoomDto(null, room.getName(), room.getRows(), room.getColumns());
+    public boolean isRoomExist(String roomName) {
+        return roomRepository.findByName(roomName).isPresent();
     }
 }
