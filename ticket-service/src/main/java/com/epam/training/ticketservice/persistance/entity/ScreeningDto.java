@@ -52,13 +52,14 @@ public class ScreeningDto {
         }
 
         ScreeningDto that = (ScreeningDto) o;
-        return Objects.equals(movieTitle, that.movieTitle)
+        return Objects.equals(id, that.id)
+                && Objects.equals(movieTitle, that.movieTitle)
                 && Objects.equals(roomName, that.roomName)
                 && Objects.equals(dateOfScreening, that.dateOfScreening);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(movieTitle, roomName, dateOfScreening);
+        return Objects.hash(id, movieTitle, roomName, dateOfScreening);
     }
 }

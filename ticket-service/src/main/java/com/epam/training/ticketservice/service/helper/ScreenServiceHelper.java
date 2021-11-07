@@ -24,7 +24,7 @@ public class ScreenServiceHelper implements GenericConverter<Screening, Screenin
 
 
     //TODO: we can implement converters here as well
-    private static final int BREAK_TIME_IN_MILLISECOND = 10 * 60000;
+    private static final long BREAK_TIME_IN_MILLISECOND = 600000L;
     private final ScreeningRepository screeningRepository;
     private final RoomService roomService;
     private final MovieService movieService;
@@ -74,32 +74,36 @@ public class ScreenServiceHelper implements GenericConverter<Screening, Screenin
         if (allScreening.isEmpty()) {
             return new Pair<>(true, "It ok");
         }
+        if (!reservedRoomsList.contains(screeningToValidate.getRoomName())) {
+            return new Pair<>(true, "It ok");
+        }
+        for (Screening screening: allScreening) {
+            if (isScreeningStartAtBreakTime(screeningToValidate, screening)) {
+                return new Pair<>(false,"This would start in the break period after another screening in this room");
+            }
 
-        if (reservedRoomsList.contains(screeningToValidate.getRoomName())) {
-            for (Screening screening: allScreening) {
-                if (isScreeningStartAtBreakTime(screeningToValidate,screening)) {
-                    return new Pair<>(
-                            false,
-                            "This would start in the break period after another screening in this room");
-                }
-
-                if (isScreenOverlapWithOther(screeningToValidate, screening)) {
-                    return new Pair<>(false, "There is an overlapping screening");
-                }
+            if (isScreenOverlapWithOther(screeningToValidate, screening)) {
+                return new Pair<>(false,"There is an overlapping screening");
             }
         }
         return new Pair<>(true, "It ok");
     }
 
     private boolean isScreeningStartAtBreakTime(Screening toValidate, Screening toCompareWith) {
-        return toValidate.getStartDate()
-                .before(new Date(toCompareWith.getEndDate().getTime() + BREAK_TIME_IN_MILLISECOND))
-                && toValidate.getStartDate().before(toCompareWith.getEndDate());
+        var startOfScreeningToValidate = toValidate.getStartDate();
+        var endOfScreeningToValidate = toValidate.getEndDate();
+        var startOfScreeningToCompare = toCompareWith.getStartDate();
+        var endOfScreeningToCompare = toCompareWith.getEndDate();
+        //comes after a screening
+        return startOfScreeningToValidate.after(endOfScreeningToCompare)
+                && startOfScreeningToValidate.before(
+                        new Date(endOfScreeningToCompare.getTime() + BREAK_TIME_IN_MILLISECOND));
+
     }
 
     private boolean isScreenOverlapWithOther(Screening toValidate, Screening toCompareWith) {
-        return toValidate.getEndDate().before(toCompareWith.getStartDate())
-                || toValidate.getStartDate().after(toCompareWith.getEndDate());
+        return !(toValidate.getEndDate().before(toCompareWith.getStartDate())
+                || toValidate.getStartDate().after(toCompareWith.getEndDate()));
     }
 
     private boolean isMovieValid(String title) {

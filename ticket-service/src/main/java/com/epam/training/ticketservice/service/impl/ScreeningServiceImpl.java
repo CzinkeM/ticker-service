@@ -64,7 +64,7 @@ public class ScreeningServiceImpl implements ScreeningService, ListPrettier<Scre
         var validator = helper.isValid(screeningDto);
         if (validator.getFirst()) {
             screeningRepository.save(screeningDto);
-            return "Created";
+            return "Created Screening";
         }
 
         return validator.getSecond();

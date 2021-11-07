@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
             return "Login failed due to incorrect credentials";
         }
         loggedInUser = convertDtoToModel(retrievedUserFormDatabase);
-        return "Welcome " + loggedInUser.getUsername() + " !";
+        return "Signed in with privileged account '" + username + "'";
     }
 
     @Override

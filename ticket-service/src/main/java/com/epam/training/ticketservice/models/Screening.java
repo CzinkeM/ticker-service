@@ -54,8 +54,37 @@ public class Screening {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Screening screening = (Screening) o;
+        return Objects.equals(movie, screening.movie)
+                && Objects.equals(roomName, screening.roomName)
+                && Objects.equals(startDateString, screening.startDateString)
+                && Objects.equals(endDate, screening.endDate)
+                && Objects.equals(startDate, screening.startDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movie, roomName, startDateString, endDate, startDate);
+    }
+
+    @Override
     public String toString() {
-        return movie.getTitle() + " (" + movie.getGenre() + ", " + movie.getLength()
-                + " minutes)" + ", screened in room " + roomName + ", at " + startDate + "\n";
+        return movie.getTitle()
+                + " (" + movie.getGenre()
+                + ", " + movie.getLength()
+                + " minutes)"
+                + ", screened in room "
+                + roomName
+                + ", at "
+                + DateConverter.convertDateToString(startDate) + "\n";
     }
 }

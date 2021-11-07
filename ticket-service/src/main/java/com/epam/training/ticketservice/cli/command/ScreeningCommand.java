@@ -33,7 +33,7 @@ public class ScreeningCommand implements CommandAvailability {
     @ShellMethodAvailability("isAvailable")
     @ShellMethod(value = "Create Screening", key = "create screening")
     public String createScreening(String movieName, String roomName, String  startDateString) {
-        return screeningService.create(new ScreeningDto(null,movieName,roomName,startDateString));
+        return screeningService.create(new ScreeningDto(null, movieName, roomName, startDateString));
     }
 
     @ShellMethodAvailability("isAvailable")

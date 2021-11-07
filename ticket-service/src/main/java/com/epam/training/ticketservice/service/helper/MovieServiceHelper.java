@@ -40,6 +40,6 @@ public class MovieServiceHelper implements ServiceHelper<Movie>, GenericConverte
 
     @Override
     public Movie convertDtoToModel(MovieDto movieDto) {
-        return new Movie(movieDto.getTitle(), movieDto.getTitle(), movieDto.getLength());
+        return new Movie(movieDto.getTitle(), movieDto.getGenre(), movieDto.getLength());
     }
 }
