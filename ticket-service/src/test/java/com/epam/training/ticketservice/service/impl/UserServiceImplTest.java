@@ -58,7 +58,7 @@ public class UserServiceImplTest {
     public void signInShouldReturnCorrespondingStringWhenCredentialsValidAndUserNotExist() {
         String username = "admin";
         String password = "admin";
-        var expected = "Welcome admin !";
+        var expected = "Signed in with privileged account 'admin'";
         Mockito.when(userRepository.findByUsernameAndPassword(username,password)).thenReturn(Optional.of(new UserDto(null, "admin", "admin", Role.ADMIN)));
 
         var actual = underTest.signIn(username,password);
